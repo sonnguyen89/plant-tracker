@@ -7,7 +7,9 @@
     <ul class="son-test">
         @if(count($plant_list))
             @foreach($plant_list as $p)
-            <li>ID: {{$p}}</li>
+            <li>title: {{$p['title']}} <br/>
+                species: {{$p['species']}}  <br/>
+            </li>
             @endforeach
         @endif
     </ul>

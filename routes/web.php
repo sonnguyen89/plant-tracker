@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlantsController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CountryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +44,34 @@ Route::get('/users', function () {
 //Route::get('/plant', 'App\Http\Controllers\PlantsController@index');
 Route::get('/plant/{id}/{name}/{password}', [PlantsController::class, 'plant_detail']);
 Route::get('/plants/list', [PlantsController::class, 'plants_list_view']);
-
+Route::get('/plants/insert', [PlantsController::class, 'insert']);
+Route::get('/plants/{id}/update', [PlantsController::class, 'update']);
+Route::get('/plants/{id}/delete', [PlantsController::class, 'destroy']);
+Route::get('/plants/find/{id}', [PlantsController::class, 'plant_find']);
+Route::get('/plants/find_more/{id}', [PlantsController::class, 'plant_find_more']);
+Route::get('/plants/basic_insert', [PlantsController::class, 'basicInsert']);
+Route::get('/plants/basic_update/{id}', [PlantsController::class, 'basicUpdate']);
+Route::get('/plants/basic_create', [PlantsController::class, 'basicCreate']);
+Route::get('/plants/soft_delete/{id}', [PlantsController::class, 'softDelete']);
+Route::get('/plants/view_trash', [PlantsController::class, 'viewTrash']);
+Route::get('/plants/view_trash/{id}', [PlantsController::class, 'viewTrash']);
+Route::get('/plants/restore', [PlantsController::class, 'restore']);
+Route::get('/plants/restore/{id}', [PlantsController::class, 'restore']);
+Route::get('/plants/permanent_delete', [PlantsController::class, 'permanentDelete']);
+Route::get('/plants/permanent_delete/{id}', [PlantsController::class, 'permanentDelete']);
 Route::resource('plants',PlantsController::class);
+
+Route::get('/user/{id}/post', [PostsController::class, 'PostByUser']);
+Route::get('/user/{id}/posts', [PostsController::class, 'PostsByUser']);
+Route::get('/post/{id}/author', [PostsController::class, 'author']);
+
+
+Route::get('/user/{id}/roles', [RoleController::class, 'RolesByUser']);
+Route::get('/user/{id}/pivot', [RoleController::class, 'UserPivot']);
+Route::get('/role/{role_id}/users', [RoleController::class, 'UsersByRole']);
+
+Route::get('/country/{country_id}/posts', [CountryController::class, 'postsByCountry']);
+
 
 Auth::routes();
 

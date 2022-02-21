@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function post() {
+        return $this->hasOne(Post::class, 'user_id');
+    }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
+    public function roles() {
+
+
+        return $this->belongsToMany(Role::class)->withPivot('created_at','updated_at');;
+
+        // to customize tables name and columns follow the format below
+        //return $this->belongsToMany(Role::class,'user_roles','user_id','role_id');
+    }
 }
