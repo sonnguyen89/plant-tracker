@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Photo $photo)
     {
         //
     }
@@ -53,10 +53,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Photo $photo)
     {
         //
     }
@@ -65,10 +65,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Photo $photo)
     {
         //
     }
@@ -76,52 +76,31 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Photo $photo)
     {
         //
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostByUser($id) {
-        return User::find($id)->post->content;
-    }
+    public function PhotosByUser($user_id) {
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostsByUser($id) {
-        return User::find($id)->posts;
-    }
+        $user = User::find($user_id);
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function author($id) {
-        return Post::find($id)->user->name;
-    }
-
-
-    public function photos($post_id) {
-        $post = Post::find($post_id);
-        foreach($post->photos as $photo) {
+        foreach($user->photos as $photo) {
 
             echo $photo;
         }
-    }
-    public function tags($post_id) {
-        $post = Post::findOrFail($post_id);
-        foreach($post->tags as $tag) {
 
-            echo $tag;
-        }
+    }
+
+    public function ownerOfPhoto($photo_id) {
+
+        $photo = Photo::findOrFail($photo_id);
+
+        echo $photo->imageable;
+
     }
 
 }

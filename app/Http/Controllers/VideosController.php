@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class VideosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Video $video)
     {
         //
     }
@@ -53,10 +52,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Video $video)
     {
         //
     }
@@ -65,10 +64,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Video $video)
     {
         //
     }
@@ -76,52 +75,18 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Video $video)
     {
         //
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostByUser($id) {
-        return User::find($id)->post->content;
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostsByUser($id) {
-        return User::find($id)->posts;
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function author($id) {
-        return Post::find($id)->user->name;
-    }
-
-
-    public function photos($post_id) {
-        $post = Post::find($post_id);
-        foreach($post->photos as $photo) {
-
-            echo $photo;
+    public function tags($video_id) {
+        $video = Video::findOrFail($video_id);
+        foreach($video->tags as $tag) {
+            echo $tag->name . '<br/>';
         }
     }
-    public function tags($post_id) {
-        $post = Post::findOrFail($post_id);
-        foreach($post->tags as $tag) {
-
-            echo $tag;
-        }
-    }
-
 }

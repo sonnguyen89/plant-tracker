@@ -5,7 +5,9 @@ use App\Http\Controllers\PlantsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CountryController;
-
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\VideosController;
+use App\Http\Controllers\TagsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,13 +66,23 @@ Route::resource('plants',PlantsController::class);
 Route::get('/user/{id}/post', [PostsController::class, 'PostByUser']);
 Route::get('/user/{id}/posts', [PostsController::class, 'PostsByUser']);
 Route::get('/post/{id}/author', [PostsController::class, 'author']);
-
+Route::get('/post/{id}/photos', [PostsController::class, 'photos']);
+Route::get('/post/{id}/tags', [PostsController::class, 'tags']);
 
 Route::get('/user/{id}/roles', [RoleController::class, 'RolesByUser']);
 Route::get('/user/{id}/pivot', [RoleController::class, 'UserPivot']);
+Route::get('/user/{id}/photos', [PhotoController::class, 'PhotosByUser']);
+Route::get('/photo/{id}/owner', [PhotoController::class, 'ownerOfPhoto']);
+
 Route::get('/role/{role_id}/users', [RoleController::class, 'UsersByRole']);
 
 Route::get('/country/{country_id}/posts', [CountryController::class, 'postsByCountry']);
+
+Route::get('/video/{id}/tags', [VideosController::class, 'tags']);
+
+Route::get('/tag/{id}/posts', [TagsController::class, 'posts']);
+Route::get('/tag/{id}/videos', [TagsController::class, 'videos']);
+
 
 
 Auth::routes();

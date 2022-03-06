@@ -15,7 +15,7 @@ class AddCountryIdToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->integer('country_id');
+            $table->integer('country_id')->nullable();
         });
     }
 

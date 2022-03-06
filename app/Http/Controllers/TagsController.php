@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tag $tag)
     {
         //
     }
@@ -53,10 +52,10 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -65,10 +64,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
         //
     }
@@ -76,52 +75,27 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
         //
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostByUser($id) {
-        return User::find($id)->post->content;
+
+    public function posts($tag_id) {
+
+        $tag = Tag::findOrFail($tag_id);
+
+        return $tag->posts;
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function PostsByUser($id) {
-        return User::find($id)->posts;
-    }
+    public function videos($tag_id) {
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function author($id) {
-        return Post::find($id)->user->name;
-    }
+        $tag = Tag::findOrFail($tag_id);
 
-
-    public function photos($post_id) {
-        $post = Post::find($post_id);
-        foreach($post->photos as $photo) {
-
-            echo $photo;
-        }
-    }
-    public function tags($post_id) {
-        $post = Post::findOrFail($post_id);
-        foreach($post->tags as $tag) {
-
-            echo $tag;
-        }
+        return $tag->videos;
     }
 
 }
